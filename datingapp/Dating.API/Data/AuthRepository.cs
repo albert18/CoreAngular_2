@@ -17,19 +17,19 @@ namespace Dating.API.Data
             throw new System.NotImplementedException();
         }
 
-        public Task<User> Register(User user, string password)
+        public async Task<User> Register(User user, string password)
         {
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
 
-            // user.PasswordHash = passwordHash;
-            // user.PasswordSalt = passwordSalt;
+            user.PasswordHash = passwordHash;
+            user.PasswordSalt = passwordSalt;
 
-            // await _context.Users.AddAsync(user);
+            await _context.Users.AddAsync(user);
 
-            // await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
-            // return user;
+            return user;
         }
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
