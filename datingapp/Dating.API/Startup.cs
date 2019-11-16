@@ -30,6 +30,10 @@ namespace Dating.API
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddCors();
 
+            // Repository
+            services.AddScoped<IAuthRepository, AuthRepository>();
+            
+
             services.AddControllers();
         }
 
