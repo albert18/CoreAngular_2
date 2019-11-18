@@ -40,7 +40,7 @@ namespace Dating.API.Controllers
             var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
 
             //Validate Request
-            return null;
+            return StatusCode(201);
         }
 
     }
