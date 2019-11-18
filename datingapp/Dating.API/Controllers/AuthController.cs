@@ -5,10 +5,14 @@ using System.Threading.Tasks;
 using Dating.API.Data;
 using Dating.API.Dtos;
 using Dating.API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dating.API.Controllers
 {
+    // [Authorize]
+    [Route("api/[controller]")]
+    [ApiController]
     public class AuthController : ControllerBase
     {
         private readonly IAuthRepository _repo;
