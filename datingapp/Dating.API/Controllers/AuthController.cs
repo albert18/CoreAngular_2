@@ -7,7 +7,7 @@ using Dating.API.Dtos;
 using Dating.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DatingApp.API.Controllers
+namespace Dating.API.Controllers
 {
     public class AuthController : ControllerBase
     {
@@ -28,7 +28,7 @@ namespace DatingApp.API.Controllers
                 return BadRequest("Username already exists");
             }
 
-            var userToCreate = new 
+            var userToCreate = new User
             {
                 Username = userForRegisterDto.Username
             };
