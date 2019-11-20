@@ -1,13 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using Dating.API.Data;
 using Dating.API.Dtos;
 using Dating.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Dating.API.Controllers
 {
@@ -16,10 +20,12 @@ namespace Dating.API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        private readonly IConfiguration _config;
         private readonly IAuthRepository _repo;
 
-        public AuthController(IAuthRepository repo)
-        {
+        public AuthController(IAuthRepository repo, IConfiguration config)
+        {   
+            _config = config;
             _repo = repo;
         }
 
@@ -44,7 +50,7 @@ namespace Dating.API.Controllers
             return StatusCode(201);
         }
 
-                [HttpPost("login")]
+        [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
             var userFromRepo = await _repo.Login(userForLoginDto.Username, userForLoginDto.Password);
@@ -74,11 +80,11 @@ namespace Dating.API.Controllers
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            var user = _mapper.Map<UserForListDto>(userFromRepo);
+            // var user = _mapper.Map<UserForListDto>(userFromRepo);
 
             return Ok(new
             {
-                token = tokenHandler.WriteToken(token),user
+                token = tokenHandler.WriteToken(token)
             });
         }
 
